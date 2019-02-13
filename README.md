@@ -4,7 +4,11 @@
 
 The application requires Python 3 to run.
 Install python 3 from https://realpython.com/installing-python/
+
+
 virtual environment is a part of standard library for python3. 
+
+
 Follow the installation steps as mentioned below,
 ```sh
 $ python3.6 -m venv <NAME_OF_THE_ENVIRONMENT> 
