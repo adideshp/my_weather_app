@@ -23,6 +23,7 @@ Above mentioned commands create a virtual-env named <NAME_OF_THE_ENVIRONMENT> (T
 
 Install all the packages listed in requirements.txt. Follow the steps below,
 ```sh
+$ cd my_weather_app
 $ pip install -r requirements.txt
 ```
 
