@@ -2,6 +2,11 @@
 
 ### Installation
 
+Clone the application 
+```sh
+$ git clone https://github.com/adideshp/my_weather_app.git
+```
+
 The application requires Python 3 to run.
 Install python 3 from https://realpython.com/installing-python/
 
