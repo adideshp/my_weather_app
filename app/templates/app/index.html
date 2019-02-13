@@ -1,0 +1,79 @@
+
+<html>
+    <head>
+        <!-- First include jquery js -->
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../static/css/index.css">
+        {# Load the tag library #}
+        {% load bootstrap3 %}
+        {# Load CSS and JavaScript #}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <!-- This loads of all of files that you call below from your 'static' folder -->
+        {% load staticfiles %}
+        <!--The static folder consists of your bootstrap files (.css, .js, fonts, etc)-->
+        <!--When you load the static folders is calls all those folders in the static files without having to code each one in individually-->
+    </head>
+<header>
+<div class="container clearfix">   
+
+<div class= "navbar-wrapper">
+    <div class="container">
+        <nav class = "navbar navbar-fixed-top navbar-light bg-light" id="navbar_whole">
+                <div class = "navbar-header">
+                    <!--Below is the top-left hand side of the screen where you usually see a company/project name and a logo-->
+                    <!--The next line sends the user back to the home page-->
+                    <h3>My Weather App</h3>
+                </div>
+        </nav>
+    </div>
+</div>
+</div>
+</header>
+
+<!-- This is where you'll put your page content. Leave it blank for now. -->
+<div class="container" style="margin-top:10%;">
+<form action="/app/city">
+    {% csrf_token %}
+    <input type="text" name="city" placeholder="City name..">
+    <button type="submit" class="btn btn-info">Search</button>
+</form>
+
+<div class="row">
+        <ul class="list-group col-md-4">
+            {% for city in cities %}
+            <li class="list-group-item"><a href="/app/weather/?woeid={{city.woeid}}"> {{city.title}}</a></li>
+            {% empty %}
+            <li class="list-group-item empty"><p style="color:red;"><b>City name not found. Please try again</b></p></li>
+            {% endfor %}
+        </ul>      
+</div>
+<div class="row">
+        {% for w_day in weather %}
+        <div class="card col-md-2">
+                <img style="width:70%;" src="https://www.metaweather.com/static/img/weather/{{w_day.weather_state_abbr}}.svg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{w_day.weather_state_name}}</h5>
+                    <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><span class="title">Date:</span>&nbsp;<span class="content">{{ w_day.applicable_date}}</span></li>
+                        <li class="list-group-item"><span class="title">Wind Dir:</span>&nbsp;<span class="content">{{w_day.wind_direction_compass}}</span> </li>
+                        <li class="list-group-item"><span class="title">Temp:</span>&nbsp;<span class="content">{{w_day.the_temp|floatformat:2}}&#176;C</span> </li>
+                        <li class="list-group-item"><span class="title">Max:</span>&nbsp;<span class="content">{{w_day.max_temp|floatformat:2}}&#176;C</span> </li>
+                        <li class="list-group-item"><span class="title">Min:</span>&nbsp;<span class="content">{{w_day.min_temp|floatformat:2}}&#176;C</span></li>
+                        <li class="list-group-item"><span class="title">Humidity:</span>&nbsp;<span class="content"> {{w_day.humidity|floatformat:2}}%</span></li>
+                        <li class="list-group-item"><span class="title">Visibility:</span>&nbsp;<span class="content">{{w_day.visibility|floatformat:2}}%</span> </li>
+                        <li class="list-group-item"><span class="title">Accuracy:</span>&nbsp;<span class="content">{{w_day.predictability|floatformat:0}}%</span> </li>
+                    </ul>
+                </div>
+        </div>
+        {% endfor %}
+</div>
+</div>
+
+<!-- This is where the footer begins -->
+<footer>
+</footer>
+</html>
